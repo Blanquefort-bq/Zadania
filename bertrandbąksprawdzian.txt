@@ -1,0 +1,147 @@
+using System;
+using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace sprawdzian
+{
+    internal class Program
+    {
+        class Dostawa 
+        {
+            
+            private Kurier Kur;
+            private Paczkomat Pacz;
+            private Poczta Pocz;
+            
+
+            private int numerPrzesylki;
+            public void NumerPrzesylki(int NumerPrzesylki)
+            {
+                this.numerPrzesylki = NumerPrzesylki;
+            }
+            public int GetNumerPrzesylki()
+            {
+                return this.numerPrzesylki;
+            }
+            public virtual void  WyswietlSzczegoly()
+            {
+                Console.WriteLine(GetNumerPrzesylki());
+               
+                
+            }
+            public void Przygotuj()
+            {
+                this.NumerPrzesylki(13);
+            }
+        }
+        class Kurier : Dostawa
+        {
+            
+            private string numerTelefonu;
+            public void SetNumerTelefonu(string NumerTelefonu)
+            {
+                this.numerTelefonu = NumerTelefonu;
+            }
+            public  string GetNumerTelefonu()
+            {
+                return this.numerTelefonu;
+            }
+            public override void WyswietlSzczegoly()
+            {
+               
+                Console.WriteLine(GetNumerTelefonu());
+            }
+
+        }
+        class Paczkomat : Dostawa
+        {
+            private int numerPaczkomatu;
+            public void NumerPaczkomatu(int NumerPaczkomatu)
+            {
+                this.numerPaczkomatu = NumerPaczkomatu;
+            }
+            public int GetNumerPaczkomatu()
+            {
+                return this.numerPaczkomatu;
+            }
+            public override void WyswietlSzczegoly()
+            {
+               
+                Console.WriteLine(GetNumerPaczkomatu());
+            }
+
+        }
+        class Poczta :Dostawa
+        {
+            private string urzadNadania;
+            public void UrzadNadania(string UrzadNadania)
+            {
+                this.urzadNadania = UrzadNadania;
+            }
+            public string GetUrzadNadania()
+            {
+                return this.urzadNadania;
+            }
+            public override void WyswietlSzczegoly()
+            {
+               
+                Console.WriteLine(GetUrzadNadania());
+            }
+        }
+
+
+        class Osoba
+        {
+
+        }
+        class Klient : Osoba
+        {
+
+        }
+        class Sprzedawca : Osoba
+        {
+
+        }
+        class Pracownik : Osoba
+        {
+
+        }
+
+        static void Main(string[] args)
+        {
+            Dostawa D = new Dostawa();
+            Kurier K = new Kurier();
+            Paczkomat PA = new Paczkomat();
+            Poczta PO = new Poczta();
+         
+                     
+            D.Przygotuj(); 
+            
+            K.SetNumerTelefonu("100 100 100");           
+            PA.NumerPaczkomatu(2309);
+            PO.UrzadNadania("Urząd miejski gminy łękołody");
+            
+
+
+            Console.WriteLine("numer przesyłki:");
+            D.WyswietlSzczegoly();
+            Console.WriteLine( );
+            Console.WriteLine("numer telefonu:");
+            K.WyswietlSzczegoly();
+            Console.WriteLine();
+            Console.WriteLine("numer paczkomatu:");
+            PA.WyswietlSzczegoly();
+            Console.WriteLine();
+            Console.WriteLine("Urząd nadania paczki:");
+            PO.WyswietlSzczegoly();
+
+
+            Console.ReadKey();
+        }
+    }
+}
