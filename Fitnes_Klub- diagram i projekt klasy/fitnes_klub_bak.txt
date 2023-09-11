@@ -1,0 +1,160 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+
+    class Klient : Konto
+    {
+        private Klub klub;
+        public int Id_klienta;
+        private string Imie;
+        private string Nazwisko;
+        private string Pesel;
+        public int Srodki_k;
+        public Klient(Klub klub, int id_klienta, string imie, string nazwisko, string pesel, int srodki_k, int id_user_k)
+        {
+            this.klub = klub;
+            Id_klienta = id_klienta;
+            Imie = imie;
+            Nazwisko = nazwisko;
+            Pesel = pesel;
+            this.Srodki_k = srodki_k;
+            this.Id_user = id_user_k;
+        }
+        public void tranzakcja()
+        {
+            Console.WriteLine("ile płacisz?");
+            int a = int.Parse(Console.ReadLine());
+            this.Srodki_k -= a;
+            klub.saldo += a;
+        }
+    }
+    class Pracownik : Konto
+    {
+        public int Id_pracownika;
+        private string Imie;
+        private string Nazwisko;
+        public int Srodki_p;
+        public Pracownik(int id_pracownika, string imie, string nazwisko, int srodki_p,int  id_user_p)
+        {
+            Id_pracownika = id_pracownika;
+            Imie = imie;
+            Nazwisko = nazwisko;
+            this.Srodki_p = srodki_p;
+            this.Id_user = id_user_p;
+        }
+    }
+    class Konto
+    {
+        public int Id_user;
+        private string Haslo;
+        private string Login;
+        public int K = 0;
+        public int P = 0;
+        public Konto(int id_user, string haslo, string login)
+        {
+            Id_user = id_user;
+            this.Haslo = haslo;
+            this.Login = login;
+        }
+        public void czy_K_P()
+        {
+            Console.WriteLine("jesteś klientem czy pracownikiem? K/P");
+            string b = Console.ReadLine();
+            if (b == "K")
+            {
+                K++;
+            }
+            else
+            {
+                P++;
+            }
+        }
+        public void rejestracja()
+        {
+            Console.WriteLine("masz już konto? TAK/NIE");
+            string a = Console.ReadLine();
+            string l = "";
+            string h = "";
+            
+            if (a == "Nie")
+            {
+                set_haslo(Console.ReadLine());
+                set_login(Console.ReadLine());
+            }
+            else
+            {
+                Console.WriteLine("podaj hasło i login:");
+                do
+                {
+                    l = Console.ReadLine();
+                    h = Console.ReadLine();
+                    if (l != this.Login && h != this.Haslo)
+                    {
+                        Console.WriteLine("hasło lub login jest niepoprawne, spróbuj ponownie...");
+                    }
+                } while (l != this.Login  && h!= this.Haslo);
+            }
+        }
+        public void set_login(string login)
+        {
+            this.Login = login;
+        }
+        public void set_haslo(string haslo)
+        {
+            this.Haslo = haslo;
+        }
+    }
+    class Klub
+    {
+        private Konto konto;
+        private Pracownik pracownik;
+        public int saldo;
+        public string h_otwarcia;
+        public string h_zamkniecia;
+
+        public void set_h_otwarcia(string h_otwarcia)
+        {
+            this.h_otwarcia = h_otwarcia;
+        }
+        public void set_h_zamkniecia(string h_zamkniecia)
+        {
+            this.h_zamkniecia = h_zamkniecia;
+        }
+        public void zaplac_pracownikowi()
+        {
+            Console.WriteLine("ile płacisz?");
+            int a = int.Parse(Console.ReadLine());
+            this.saldo -= a;
+            pracownik.Srodki_p += a;
+        }
+    }
+    class Abonament
+    {
+        private Klient klient;
+        public string data_roz;
+        public string data_zak;
+
+        public void set_data_rozpoczecia()
+        {
+            Console.WriteLine("podaj datę rozpoczęcia");
+            data_roz= Console.ReadLine();
+        }
+        public void set_data_zakonczenia()
+        {
+            Console.WriteLine("podaj datę zakończenia");
+            data_zak = Console.ReadLine();
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+        }
+    }
+}
