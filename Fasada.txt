@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+    class newsletter
+    {
+        public void news() { Console.WriteLine("przyk³¹dowy newsletter"); }
+        class login { public void ch_log() { Console.WriteLine("login poprawny"); } }
+        class rej_prod { public void rej() { Console.WriteLine("zarejestrowano"); } }
+        class add_user { public static void add_us() { Console.WriteLine("Dodano urzytkownika"); } }
+        class Register
+        {
+            public static void reg()
+            {
+                newsletter News = new newsletter();
+                login log = new login();
+                rej_prod rej = new rej_prod();
+
+                News.news();
+                log.ch_log();
+                rej.rej();
+                add_user.add_us();
+            }
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                Register.reg();
+                Console.ReadLine();
+            }
+        }
+    }
+}
