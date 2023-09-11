@@ -1,0 +1,183 @@
+/////
+zadanie rowery
+/////
+ 
+class Producent
+        {
+            private string nazwa;
+            private string nip;
+
+
+            public string getNazwa()
+            {
+                return nazwa;
+            }
+            public string getNip()
+            {
+                return nip;
+            }
+            public void SetNazwa(string nazwa)
+            {
+                this.nazwa = nazwa;
+            }
+        }
+        class Material
+        {
+            string typ;
+            int id;
+            double cena;
+
+            public void setTyp(string typa)
+            {
+                this.typ = typa;
+            }
+            public string GetTyp()
+            {
+                return typ;
+            }
+            public double getCena()
+            {
+                return cena;
+            }
+            public void setld(int ida)
+            {
+                this.id = ida;
+            }
+        }
+        class Rower
+        {
+            private Producent producent;
+            private Material material;
+            private string kolor;
+
+            public void setProducent(Producent aproducent)
+            {
+                this.producent = aproducent;
+            }
+            public void setMaterial(Material amaterial)
+            {
+                this.material = amaterial;
+            }
+
+            public static void jedz()
+            {
+                Console.WriteLine("skrzyp skrzyp");
+            }
+            public void setKolor(string kolor)
+            {
+                this.kolor = kolor;
+            }
+            public string getColor()
+            {
+                return kolor;
+            }
+            public void showRower()
+            {
+                Console.WriteLine($"Ten oto model roweru został wytworzony przez producenta {this.producent} z materiału {this.material} ");
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Rower rower = new Rower();
+            rower.showRower();
+
+            Console.ReadKey();
+        }
+/////
+zadanie zakupy
+/////
+class Profil
+        {
+            string imie;
+            string drugieImie;
+            string nazwisko;
+
+            public string getimie()
+            {
+                return imie;
+            }
+            public string getNazwisko()
+            {
+                return nazwisko;
+            }
+        }
+
+        class Uzytkownik
+        {
+            private string login;
+            private string haslo;
+            private Profil profil;
+
+            public void loguj()
+            {
+                Console.WriteLine("logowanie do systemu...");
+            }
+        }
+
+        class Produkt
+        {
+            string nazwa;
+            double cena;
+            string opis;
+
+            public string getNazwa()
+            {
+                return nazwa;
+            }
+            public double getCena()
+            {
+                return cena;
+            }
+            public Produkt(string nazwa, double cena, string opis)
+            {
+                this.nazwa = nazwa;
+                this.cena = cena;
+                this.opis = opis;
+            }
+            class Koszyk
+            {
+                private int id;
+                private Produkt produkt;
+                private Uzytkownik uzytkownik;
+
+                public int getId()
+                {
+                    return id;
+                }
+                public void operation()
+                {
+                    Console.WriteLine("zakup produktów ");
+
+                }
+            }
+        }
+
+
+
+////
+//kart.6
+//zd1
+
+/*Console.WriteLine("podaj ciąg liczb");
+
+int a = int.Parse(Console.ReadLine());
+int b = int.Parse(Console.ReadLine());
+int c = int.Parse(Console.ReadLine());
+
+//arytmetyczny
+if (a - b == b - c && a-b == a - c)
+{
+    Console.WriteLine("ciąg jest arytmetyczny");
+}
+//geometryczny
+if()*/
+
+//zd2
+for (int i = 99; i < 1000; i++)
+{
+    if (i % 8 == 0 && i % 16 != 0)
+    {
+
+    }
+}
