@@ -1,0 +1,152 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+
+    class Klient
+    {
+        public int Id_Klienta;
+        public int pesel;
+        public int Nr_sejfu;
+        public string login;
+        public string name;
+        public string lastname;
+
+        public Klient(int Id_Klienta_a, int pesel_a,int Nr_sejfu_a, string login_a, string name_a, string lastname_a)
+        {
+            Id_Klienta= Id_Klienta_a;
+            pesel= pesel_a; 
+            Nr_sejfu= Nr_sejfu_a;
+            login= login_a;
+            name= name_a;
+            lastname= lastname_a;
+        }
+        public void setlogin(string login)
+        {
+            this.login = login;
+        }
+       public void logowanie()
+        {
+            Console.WriteLine("podaj login");
+            string login_b = Console.ReadLine();
+            if (login_b == this.login)
+            {
+                Console.WriteLine("zalogowano pomyślnie");
+            }
+            else { Console.WriteLine("spróbuj jeszcze raz"); }
+        }
+    }
+    class Pracownik
+    {
+       public int id_pracownika;
+       public string imie;
+       public string nazwisko;
+       public  string login_p;
+        public Pracownik(int id_pracownika_b, string imie_b, string nazwisko_b)
+        {
+            id_pracownika= id_pracownika_b;
+            imie= imie_b;   
+            nazwisko = nazwisko_b;
+        }
+        public void setlogin(string login)
+        {
+            this.login_p = login;
+        }
+        public void logowanie()
+        {
+            Console.WriteLine("podaj login");
+            string login_b = Console.ReadLine();
+            if (login_b == this.login_p)
+            {
+                Console.WriteLine("zalogowano pomyślnie");
+            }
+            else { Console.WriteLine("spróbuj jeszcze raz"); }
+        }
+        public void zatwierdzenie_transakcji()
+        {
+
+        }
+    }
+    
+
+    class Kredyt 
+    {
+        private Klient klient;
+        private Pracownik pracownik;
+        private Sejf sejf;
+
+        public int kwota;
+        public int id_kredytu;
+
+        public Kredyt(int kwota_c,int id_klienta_c, int id_pracownika_c, int id_kredytu_c)
+        {
+            kwota= kwota_c;
+            klient.Id_Klienta= id_klienta_c;
+            pracownik.id_pracownika = id_pracownika_c;
+        }
+        public void czy_spłacono()
+        {
+            if (sejf.kredyt_tf == false)
+            {
+                Console.WriteLine("spłacono");
+            }
+            else Console.WriteLine("nie spłacono");
+        }
+    }
+    class Sejf
+    {
+        private Klient klient;
+        private Kredyt kredyt;
+
+        int ilość_na_koncie;
+        public bool kredyt_tf = false;
+        public Sejf(int id_kredytu_d, int id_klienta_d, int ilość_na_koncie_d)
+        {
+            klient.Id_Klienta = id_klienta_d;
+            kredyt.id_kredytu= id_kredytu_d;
+            ilość_na_koncie= id_klienta_d;
+            
+        }
+        public void przesył_pieniędzy()
+        {
+            string a = "";
+            do
+            {
+                Console.WriteLine("wpłacić czy wypłacić?");
+                a = Console.ReadLine();
+                if (a == "wpłacić")
+                {
+                    Console.WriteLine("ile?");
+                    this.ilość_na_koncie += int.Parse(Console.ReadLine());
+
+                }
+                if (a == "wypłać")
+                {
+                    Console.WriteLine("ile?");
+                    this.ilość_na_koncie -= int.Parse(Console.ReadLine());
+                }
+                else Console.WriteLine("nie rozumiem polecenia, spróbuj ponownie");
+
+                if (this.ilość_na_koncie < 0)
+                {
+                    this.kredyt_tf = true;
+                }
+                else
+                {
+                    this.kredyt_tf = false;
+                }
+            } while (a != "wpłacić" || a != "wypłacić");
+        }
+
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+        }
+    }
+}
