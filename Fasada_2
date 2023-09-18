@@ -1,0 +1,78 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Fasada_2
+{
+    internal class Program
+    {
+        interface IRabat{
+            bool Rab();
+        }
+        interface Ishipment{
+
+            bool Ship();
+        }
+        class Dodatki : IRabat, Ishipment
+        {
+            public bool Rab()
+            {
+                return true;
+            }
+            public bool Ship()
+            {
+                return false;
+            }
+        }
+        class Magazynier {
+            public static void Work()
+            {
+                Towar.Stuff();
+                Dodatki dod = new Dodatki();
+                Console.WriteLine("Czy rabat: "+dod.Rab());
+                Console.WriteLine("Czy wysyłka: "+ dod.Ship());
+            }
+        }
+        class Rodzaj {
+            public static void type()
+            {
+                Dictionary<int, string> Type = new Dictionary<int, string>();
+                Type.Add(1, "Drewniany");
+                Console.WriteLine("Rodzaj:" + Type[1]);
+            }
+        }
+        class Shelf {
+            public int s_index()
+            {
+                Random rnd = new Random();
+                int a = rnd.Next(1, 100);
+                return a;
+            }
+        }
+        class Seria {
+            public int s_series()
+            {
+                Random rnd = new Random();
+                int a = rnd.Next(1, 100);
+                return a;
+            }
+        }
+        class Towar { 
+            public static void Stuff()
+            {
+                Shelf shf = new Shelf();
+                Seria ser = new Seria();
+                Rodzaj.type();
+                Console.WriteLine("Leży na półce numer: "+shf.s_index());
+                Console.WriteLine("Należy do serii: "+ser.s_series());
+            }
+        }
+        static void Main(string[] args)
+        {
+            Magazynier.Work();
+            Console.ReadKey();
+        }
+    }
+}
