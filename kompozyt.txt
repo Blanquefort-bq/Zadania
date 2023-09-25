@@ -1,0 +1,92 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+    public abstract class MenuComponent 
+    {
+        public string name { get; set; }
+
+        public  void add_component(MenuComponent mc) { }
+        public abstract void display();
+    }
+    public class MenuComposite : MenuComponent
+    {
+
+        List <MenuComponent> Component_L = new List <MenuComponent> ();
+
+        public MenuComposite(string name)
+        {
+            this.name = name;
+        }
+
+        public void add_component(MenuComponent mc)
+        {
+            Component_L.Add(mc);
+        }
+        public override void display()
+        {
+            Console.WriteLine(name);
+            foreach (var item in Component_L)
+            {
+                item.display();
+            }
+        }
+    }
+    public class MenuItem : MenuComponent
+    {
+        public MenuItem(string name)
+        {
+            this.name = name;
+        }
+        public override void display()
+        {
+            Console.WriteLine(name);
+        }
+    }
+
+   
+    internal class Program
+    {
+        
+
+        static void Main(string[] args)
+        {
+
+            MenuComposite Struktura = new MenuComposite("struktura");
+            MenuComposite Kreacja = new MenuComposite("kreacja");
+            MenuComposite Zachowanie = new MenuComposite("zachowanie");
+
+               MenuItem Fasada = new MenuItem("Fasada");
+               MenuItem Kompozyt = new MenuItem("Kompozyt");
+               MenuItem Dekorator = new MenuItem("Dekorator");
+               MenuItem singleton = new MenuItem("singleton");
+               MenuItem fabryka = new MenuItem("fabryka");
+               MenuItem strategia = new MenuItem("strategia");
+               MenuItem obserwator = new MenuItem("obserwator");
+
+            Struktura.add_component(fabryka);
+            Struktura.add_component(Kompozyt);
+            Struktura.add_component(Dekorator);
+
+            Kreacja.add_component(singleton);
+            Kreacja.add_component(fabryka);
+
+            Zachowanie.add_component(obserwator);
+            Zachowanie.add_component(strategia);
+
+            MenuComposite menu1 = new MenuComposite("Menu1");
+            menu1.add_component(Struktura);
+            menu1.add_component(Kreacja);
+            menu1.add_component(Zachowanie);
+
+            menu1.display();
+            Console.ReadKey();
+
+        }
+    }
+}
