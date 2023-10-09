@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp6
+{
+    internal class Program
+    {
+        interface IAdaptee
+        {
+            void method();
+        }
+        interface Target
+        {
+            void method2();
+        }
+        class Client:Target 
+        {
+            public void method2() { }
+        public string Name { get; set; }
+        }
+        class Adapter : Target, IAdaptee 
+        {
+            public void method2()
+            {
+
+            }
+            public string Name()
+            {
+                return "name";
+            }
+            public void method(){ }
+        }
+        class Adaptee :IAdaptee
+        {
+          public void method() { }
+        }
+        static void Main(string[] args)
+        {
+            
+        }
+    } 
+}
+
+
+klasowy ^
