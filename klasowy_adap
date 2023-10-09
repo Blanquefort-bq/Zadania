@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Authentication.ExtendedProtection;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp6
+{
+    
+    internal class Program
+    {
+        interface Isqure{
+            void check_square();
+        }
+       class Client:Isqure 
+       {
+            public void check_square(){ }
+       } 
+       class Adapter : Isqure {
+
+            prstk pros = new prstk(1,2);
+            
+            public void check_square()
+            {
+                if(pros.x == pros.y)
+                {
+                    Console.WriteLine("kwadraciście, yo");
+                }
+            }
+        }
+        class prstk
+        {
+            public int x{ get; set; }
+            public int y { get; set; }
+            public prstk(int x1, int y1)
+            {
+                x = x1;
+                y = y1;
+            }
+        
+
+        }
+
+
+
+
+        static void Main(string[] args)
+        {
+            
+        }
+    } 
+}
