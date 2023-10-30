@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp10
+{
+    internal class Program
+    {
+        interface Ipotegowanie
+        {
+            int pot2(int a);
+            int pot(int a, int b);
+        }
+        interface IMnozenie
+        {
+            int Mno(int a);
+        }
+        
+       class Adapter: IMnozenie, Ipotegowanie
+        {
+            public int Mno(int a, int b)
+            {
+                return a * b;
+            }
+            public int Mno(int a)
+            {
+                return a*a;
+            }
+            public int pot2(int a)
+            {
+                return Mno(a, a);
+            }
+            public int pot(int a, int b)
+            {
+                int c = 1;
+                for (int i = 0; i < b; i++)
+                {
+                    c = Mno(c, a);
+                }
+                return a;
+            }   
+        }
+        static void Main(string[] args)
+        {
+            Adapter adapter = new Adapter();
+           
+            Console.WriteLine(adapter.Mno(6, 2));
+            Console.WriteLine(adapter.pot2(6));
+            Console.WriteLine(adapter.pot(6,6));
+            Console.ReadKey();
+        }
+    }
+}
