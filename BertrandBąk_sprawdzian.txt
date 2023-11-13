@@ -1,0 +1,124 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace sor
+{
+    internal class Program
+    {
+        interface Iwyplacenie
+        {
+            int Blikowanie(int money);
+        }
+
+
+        class Konto :Karta{
+            public int Karty_do_konta { get; set; }
+            public int Numer { get; set; }
+            public string Posiadacz { get; set; }
+            Karta K = new Karta();
+            public Konto(int Numer, string Posiadacz, int Karty_do_konta, int numer_karty)
+            { 
+                K.numer_karty = numer_karty;
+                this.Karty_do_konta = Karty_do_konta;
+                this.Numer =Numer;
+                this.Posiadacz = Posiadacz;
+            }
+        }
+        class Karta {
+            public int numer_karty;
+            public int pin;
+            public string data_waznosci;
+        }
+        class Saldo 
+        {
+            public int stan_rachunku;
+        }
+        class Walidacja_op:Saldo {
+            Konto K = new Konto(100, "adam",12092,109);
+            public string Walidacja()
+            {
+                Console.WriteLine("podaj pin");
+                int a = int.Parse(Console.ReadLine());
+                if (K.pin == a)
+                {
+                    Console.WriteLine("Wpłacićczy wypłacić? +/-");
+                    string b = Console.ReadLine();
+                    return b;
+                }
+                else{ return null; }
+            }
+        }
+        class Wykonanie_op :Saldo{
+            Saldo NSaldo = new Saldo();
+            public void Wykonanie(int money,string a)
+            {
+                if ( a == "+")
+                {
+                    NSaldo.stan_rachunku += money;
+                }
+                else if ( a == "-" )
+                {
+                    if (NSaldo.stan_rachunku > money)
+                    {
+                        NSaldo.stan_rachunku -= money;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nie możesz wypłacić");
+                    } 
+                }
+            }
+        }
+        class Fasada
+        {
+            public static void operacja(int money)
+            {
+                Walidacja_op Wal = new Walidacja_op();
+                Wykonanie_op Wyk = new Wykonanie_op();
+                string a = Wal.Walidacja();
+                Wyk.Wykonanie(money,a);   
+            }
+        }
+        class Adapter :Iwyplacenie
+        {
+           
+            public int Blikowanie(int money)
+            {
+                Random rnd = new Random();
+                int kod_wyp = rnd.Next(100000, 999999);
+                Fasada.operacja(money);
+                return kod_wyp;
+            }
+        }
+
+        abstract class Component
+        {
+            public abstract void dodaj_Subkonto(int Numer, string Posiadacz, int Karty_do_konta, int numer_karty);
+        }
+        class Composite : Component
+        {
+            List<object> Subkonta = new List<object>();
+            public override void dodaj_Subkonto(int Numer, string Posiadacz, int Karty_do_konta, int numer_karty)
+            {
+                Konto K = new Konto(Numer, Posiadacz, Karty_do_konta, numer_karty);
+                Subkonta.Add(K);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Fasada.operacja(500);
+
+            Adapter Adp = new Adapter();
+            Adp.Blikowanie(500);
+
+            Composite composite = new Composite();
+            composite.dodaj_Subkonto(12, "lucek", 1234, 298);
+            composite.dodaj_Subkonto(15, "marian", 76, 65465);  
+        }
+    }
+}
