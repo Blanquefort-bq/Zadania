@@ -1,0 +1,143 @@
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        interface IArmy
+        {
+            IKawaleria CreateKawaleria();
+            IPiechota CreatePiechota();
+        }
+        interface IKawaleria {
+            void szarzuj();
+        }
+        interface IPiechota 
+        {
+            void bron_sie();
+            void krzycz();
+        }
+
+        class Orki_fabryka : IArmy {
+            public IKawaleria CreateKawaleria()
+            {
+                return new Orcza_Kawaleria();
+            }
+            public IPiechota CreatePiechota()
+            {
+                return new Orcza_Piechota();
+            }
+
+        }
+        class Elfy_fabryka : IArmy {
+            public IKawaleria CreateKawaleria()
+            {
+                return new Elfia_Kawaleria();
+            }
+            public IPiechota CreatePiechota()
+            {
+                return new Elfia_Piechota();
+            }
+        }
+
+        class Orcza_Piechota: IPiechota {
+            public void bron_sie()
+            {
+                Console.WriteLine("Piechota wyciąga broń");
+            }
+            public void krzycz()
+            {
+                Console.WriteLine("GRRgrR!");
+            }
+        }
+        class Orcza_Kawaleria : IKawaleria{
+            public void szarzuj()
+            {
+                Console.WriteLine("Juu huuu! Wszyscy na przód");
+            }
+        }
+        class Elfia_Piechota : IPiechota {
+            public void bron_sie()
+            {
+                Console.WriteLine("Piechota wyciąga elifcką broń");
+            }
+            public void krzycz()
+            {
+                Console.WriteLine("po elficku: AAAAAAAAAAAAA");
+            }
+        }
+        class Elfia_Kawaleria : IKawaleria {
+            public void szarzuj()
+            {
+                Console.WriteLine("po elficku: Jej hej! Wszyscy na przód");
+            }
+        }
+
+        enum Armies
+        {
+            Orki,
+            Elfy
+        }
+        class ArmyFabric
+        {
+            public static IKawaleria CreateKawaleria(Armies army)
+            {
+                switch (army)
+                {
+                    case Armies.Orki:
+                        return new Orcza_Kawaleria();
+                        
+                    case Armies.Elfy:
+                        return new Elfia_Kawaleria();
+                    default:
+                        throw new InvalidOperationException($"Armia jest błędna {army}!");
+                }
+            }
+            public static IPiechota CreatePiechota(Armies army)
+            {
+                switch (army)
+                {
+                    case Armies.Orki:
+                        return new Orcza_Piechota();
+
+                    case Armies.Elfy:
+                        return new Elfia_Piechota();
+                    default:
+                        throw new InvalidOperationException($"Armia jest błędna {army}!");
+                }
+            }
+
+        }
+
+        static void Main(string[] args)
+        {
+            Armies army = Armies.Orki;
+            IKawaleria ok = ArmyFabric.CreateKawaleria(army);
+            IPiechota op = ArmyFabric.CreatePiechota(army);
+
+            Console.WriteLine("po stronie pola bitwy okrów:");
+            ok.szarzuj();
+            op.krzycz();
+            op.bron_sie();
+            Console.WriteLine("----------------------------");
+
+            army = Armies.Elfy;
+            IKawaleria ek = ArmyFabric.CreateKawaleria(army);
+            IPiechota ep = ArmyFabric.CreatePiechota(army);
+            Console.WriteLine("po stronie pola bitwy elfów:");
+            ek.szarzuj();
+            ep.krzycz();
+            ep.bron_sie();
+            Console.WriteLine("----------------------------");
+            
+            Console.ReadKey();
+        }
+
+    }
+}
